@@ -1,0 +1,15 @@
+node_modules
+dist
+build
+*.log
+.env
+.env.local
+.env.*.local
+coverage
+*.tsbuildinfo
+.DS_Store
+*.tgz
+.npm
+.eslintcache
+.cache
+bun.lockb

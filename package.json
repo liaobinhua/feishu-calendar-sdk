@@ -1,0 +1,53 @@
+{
+  "name": "@liaobinhua/feishu-calendar-sdk-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Feishu/Lark Calendar SDK with OpenCode and OpenClaw support",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "bun --filter '@liaobinhua/feishu-calendar-sdk' run dev",
+    "build": "bun run build --filter='*'",
+    "test": "bun run test --filter='*'",
+    "test:coverage": "bun run test:coverage --filter='*'",
+    "lint": "bun run lint --filter='*'",
+    "lint:fix": "bun run lint:fix --filter='*'",
+    "format": "bun run format --filter='*'",
+    "clean": "bun run clean --filter='*'",
+    "changeset": "changeset",
+    "release": "bun run build && changeset publish",
+    "version": "changeset version"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "typescript": "^5.3.0",
+    "bun-types": "latest"
+  },
+  "packageManager": "bun@1.0.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "feishu",
+    "lark",
+    "calendar",
+    "飞书",
+    "日历",
+    "typescript",
+    "sdk",
+    "opencode",
+    "openclaw",
+    "mcp"
+  ],
+  "author": "liaobinhua <liaobinhua1994@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liaobinhua/feishu-calendar-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liaobinhua/feishu-calendar-sdk/issues"
+  },
+  "homepage": "https://github.com/liaobinhua/feishu-calendar-sdk#readme"
+}
