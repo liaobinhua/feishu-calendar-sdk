@@ -1,0 +1,35 @@
+{
+  "id": "feishu-calendar-openclaw",
+  "name": "Feishu Calendar",
+  "version": "0.1.0",
+  "description": "Complete Feishu/Lark calendar management for OpenClaw",
+  "author": "liaobinhua <liaobinhua1994@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/liaobinhua/feishu-calendar-sdk",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "appId": {
+        "type": "string",
+        "description": "Feishu/Lark App ID"
+      },
+      "appSecret": {
+        "type": "string",
+        "description": "Feishu/Lark App Secret"
+      }
+    },
+    "required": ["appId", "appSecret"]
+  },
+  "uiHints": {
+    "appId": {
+      "label": "App ID",
+      "placeholder": "cli_xxxxxxxxxxxxxxxx"
+    },
+    "appSecret": {
+      "label": "App Secret",
+      "sensitive": true,
+      "placeholder": "Your app secret"
+    }
+  }
+}

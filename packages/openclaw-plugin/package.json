@@ -1,0 +1,46 @@
+{
+  "name": "@liaobinhua/feishu-calendar-openclaw",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "OpenClaw plugin for Feishu/Lark Calendar operations",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    }
+  },
+  "files": ["README.md", "LICENSE"],
+  "scripts": {
+    "build": "bun build src/index.ts --outfile index.js --target node",
+    "dev": "bun run --watch src/index.ts",
+    "test": "vitest",
+    "prepublishOnly": "bun run build"
+  },
+  "keywords": ["openclaw", "plugin", "feishu", "lark", "calendar"],
+  "dependencies": {
+    "@liaobinhua/feishu-calendar-sdk": "^0.1.0",
+    "@sinclair/typebox": "^0.34.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "bun-types": "latest"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "liaobinhua <liaobinhua1994@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liaobinhua/feishu-calendar-sdk.git"
+  },
+  "openclaw": {
+    "extensions": ["index.js"]
+  }
+}
