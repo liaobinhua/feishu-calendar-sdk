@@ -1,19 +1,18 @@
-import { defineConfig } from 'vitest/config';
 import path from 'path';
-
-const projectRoot = path.resolve(__dirname);
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@': path.resolve(projectRoot, './src')
+      '@': path.resolve(__dirname, './src')
     }
   },
   test: {
     globals: true,
     environment: 'node',
-    include: ['tests/**/*.test.ts'],
-    setupFiles: ['tests/setup.ts'],
+    include: [
+      'tests/**/*.test.ts'
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

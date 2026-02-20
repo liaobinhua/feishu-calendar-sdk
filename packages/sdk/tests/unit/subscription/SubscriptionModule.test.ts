@@ -107,7 +107,7 @@ describe('SubscriptionModule', () => {
       expect(mockHttpClient.request).toHaveBeenCalledWith({
         method: 'GET',
         url: '/calendar/v4/subscriptions',
-        params: {}
+        params: undefined
       });
     });
   });

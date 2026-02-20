@@ -72,7 +72,7 @@ describe('MeetingRoomModule', () => {
       expect(mockHttpClient.request).toHaveBeenCalledWith({
         method: 'GET',
         url: '/calendar/v4/meeting_rooms',
-        params: {}
+        params: undefined
       });
     });
   });

@@ -108,7 +108,7 @@ describe('CalendarModule', () => {
       expect(mockHttpClient.request).toHaveBeenCalledWith({
         method: 'GET',
         url: '/calendar/v4/calendars',
-        params: {}
+        params: undefined
       });
     });
   });

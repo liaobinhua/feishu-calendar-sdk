@@ -1,10 +1,16 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { HttpClient } from '@/http/HttpClient';
 import { TokenManager } from '@/auth/TokenManager';
+import { request } from 'undici';
+
+vi.mock('undici', () => ({
+  request: vi.fn()
+}));
 
 describe('HttpClient', () => {
   let httpClient: HttpClient;
   let mockTokenManager: TokenManager;
+  let mockResponse: any;
   
   beforeEach(() => {
     mockTokenManager = {
@@ -12,25 +18,27 @@ describe('HttpClient', () => {
     } as any;
     
     httpClient = new HttpClient('https://api.test.com', mockTokenManager);
-    global.fetch = vi.fn();
+    
+    mockResponse = {
+      body: {
+        json: vi.fn()
+      }
+    };
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('request', () => {
     it('should make GET request with auth header', async () => {
-      const mockResponse = {
+      mockResponse.body.json.mockResolvedValue({
         code: 0,
         msg: 'success',
         data: { result: 'test' }
-      };
+      });
       
-      vi.mocked(fetch).mockResolvedValue({
-        ok: true,
-        json: async () => mockResponse
-      } as Response);
+      vi.mocked(request).mockResolvedValue(mockResponse as any);
       
       const result = await httpClient.request({
         method: 'GET',
@@ -38,7 +46,7 @@ describe('HttpClient', () => {
       });
       
       expect(result).toEqual({ result: 'test' });
-      expect(fetch).toHaveBeenCalledWith(
+      expect(request).toHaveBeenCalledWith(
         'https://api.test.com/test',
         expect.objectContaining({
           method: 'GET',
@@ -51,16 +59,13 @@ describe('HttpClient', () => {
     });
 
     it('should make POST request with body', async () => {
-      const mockResponse = {
+      mockResponse.body.json.mockResolvedValue({
         code: 0,
         msg: 'success',
         data: { created: true }
-      };
+      });
       
-      vi.mocked(fetch).mockResolvedValue({
-        ok: true,
-        json: async () => mockResponse
-      } as Response);
+      vi.mocked(request).mockResolvedValue(mockResponse as any);
       
       const result = await httpClient.request({
         method: 'POST',
@@ -72,16 +77,13 @@ describe('HttpClient', () => {
     });
 
     it('should handle query parameters', async () => {
-      const mockResponse = {
+      mockResponse.body.json.mockResolvedValue({
         code: 0,
         msg: 'success',
         data: { items: [] }
-      };
+      });
       
-      vi.mocked(fetch).mockResolvedValue({
-        ok: true,
-        json: async () => mockResponse
-      } as Response);
+      vi.mocked(request).mockResolvedValue(mockResponse as any);
       
       await httpClient.request({
         method: 'GET',
@@ -89,23 +91,20 @@ describe('HttpClient', () => {
         params: { page_size: 10, page_token: 'abc123' }
       });
       
-      expect(fetch).toHaveBeenCalledWith(
+      expect(request).toHaveBeenCalledWith(
         expect.stringContaining('page_size=10&page_token=abc123'),
         expect.anything()
       );
     });
 
     it('should throw error for non-zero response code', async () => {
-      const mockResponse = {
+      mockResponse.body.json.mockResolvedValue({
         code: 99991401,
         msg: 'Unauthorized',
         data: null
-      };
+      });
       
-      vi.mocked(fetch).mockResolvedValue({
-        ok: true,
-        json: async () => mockResponse
-      } as Response);
+      vi.mocked(request).mockResolvedValue(mockResponse as any);
       
       await expect(
         httpClient.request({ method: 'GET', url: '/test' })
@@ -113,16 +112,13 @@ describe('HttpClient', () => {
     });
 
     it('should pass custom headers', async () => {
-      const mockResponse = {
+      mockResponse.body.json.mockResolvedValue({
         code: 0,
         msg: 'success',
         data: { result: 'test' }
-      };
+      });
       
-      vi.mocked(fetch).mockResolvedValue({
-        ok: true,
-        json: async () => mockResponse
-      } as Response);
+      vi.mocked(request).mockResolvedValue(mockResponse as any);
       
       await httpClient.request({
         method: 'GET',
@@ -130,7 +126,7 @@ describe('HttpClient', () => {
         headers: { 'X-Custom-Header': 'custom_value' }
       });
       
-      expect(fetch).toHaveBeenCalledWith(
+      expect(request).toHaveBeenCalledWith(
         expect.anything(),
         expect.objectContaining({
           headers: expect.objectContaining({
@@ -141,16 +137,13 @@ describe('HttpClient', () => {
     });
 
     it('should filter out undefined and null params', async () => {
-      const mockResponse = {
+      mockResponse.body.json.mockResolvedValue({
         code: 0,
         msg: 'success',
         data: { result: 'test' }
-      };
+      });
       
-      vi.mocked(fetch).mockResolvedValue({
-        ok: true,
-        json: async () => mockResponse
-      } as Response);
+      vi.mocked(request).mockResolvedValue(mockResponse as any);
       
       await httpClient.request({
         method: 'GET',
@@ -162,7 +155,7 @@ describe('HttpClient', () => {
         }
       });
       
-      expect(fetch).toHaveBeenCalledWith(
+      expect(request).toHaveBeenCalledWith(
         expect.stringContaining('valid=value'),
         expect.anything()
       );
