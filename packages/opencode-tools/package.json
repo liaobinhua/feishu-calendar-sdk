@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "type": "module",
   "description": "OpenCode custom tools for Feishu Calendar SDK",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "files": [
-    "src",
+    "dist",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target node",
+    "build:cjs": "bun build src/index.ts --outfile dist/index.cjs --target node",
+    "build:esm": "bun build src/index.ts --outfile dist/index.mjs --target node",
     "test": "vitest",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
