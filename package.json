@@ -21,8 +21,10 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
+    "@vitest/coverage-v8": "^4.0.18",
+    "bun-types": "latest",
     "typescript": "^5.3.0",
-    "bun-types": "latest"
+    "vitest": "^4.0.18"
   },
   "packageManager": "bun@1.0.0",
   "engines": {

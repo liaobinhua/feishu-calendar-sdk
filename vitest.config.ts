@@ -4,6 +4,10 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
+    include: [
+      'tests/unit/**/*.test.ts',
+      'tests/integration/**/*.test.ts'
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -11,8 +15,7 @@ export default defineConfig({
         'node_modules/',
         'dist/',
         '**/*.test.ts',
-        '**/*.spec.ts',
-        '**/index.ts'
+        '**/*.spec.ts'
       ],
       all: true,
       lines: 80,
