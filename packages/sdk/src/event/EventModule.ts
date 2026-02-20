@@ -57,7 +57,7 @@ export class EventModule {
     return response.items;
   }
   
-  async listWithIterator(params: ListEventsRequest): AsyncGenerator<Event[]> {
+  async *listWithIterator(params: ListEventsRequest): AsyncGenerator<Event[]> {
     const pageSize = params?.page_size || 50;
     let pageToken: string | undefined;
     

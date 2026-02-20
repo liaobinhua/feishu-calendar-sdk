@@ -28,7 +28,7 @@ export class SubscriptionModule {
     return response.items;
   }
   
-  async listWithIterator(params?: ListSubscriptionsRequest): AsyncGenerator<Subscription[]> {
+  async *listWithIterator(params?: ListSubscriptionsRequest): AsyncGenerator<Subscription[]> {
     const pageSize = params?.page_size || 50;
     let pageToken: string | undefined;
     

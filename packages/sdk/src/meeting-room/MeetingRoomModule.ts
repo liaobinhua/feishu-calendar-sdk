@@ -20,7 +20,7 @@ export class MeetingRoomModule {
     return response.items;
   }
   
-  async listWithIterator(params?: ListMeetingRoomsRequest): AsyncGenerator<MeetingRoom[]> {
+  async *listWithIterator(params?: ListMeetingRoomsRequest): AsyncGenerator<MeetingRoom[]> {
     const pageSize = params?.page_size || 50;
     let pageToken: string | undefined;
     
